@@ -14,6 +14,31 @@ Tired of wondering when your food will be delivered?  Have we got a solution for
 
 ### Setup
 
+* Clients
+  * Customer
+    * Publish:
+      * ORDER
+      * THANK_YOU
+    * Receive:
+      * READY_FOR_PICKUP
+      * IN_TRANSIT
+      * DELIVERED
+  * Vendor
+    * Publish:
+      * READY_FOR_PICKUP
+    * Receive:
+      * ORDER
+      * IN_TRANSIT
+      * DELIVERED
+      * THANK_YOU
+  * Driver
+    * Publish:
+      * IN_TRANSIT
+      * DELIVERED
+    * Receive:
+      * READY_FOR_PICKUP
+      * THANK_YOU
+
 ### UML
 
 ![uml](/public/img/food-fellows-uml.jpg)
