@@ -12,4 +12,10 @@ setInterval(() => {
     address: chance.address(),
   };
   customer.publish('ORDER', {customerId: chance.guid(), ...order});
+  console.log(`CUSTOMER: placed order: ${order.orderId}`);
 }, 3000);
+
+customer.subscribe('IN-TRANSIT', (payload) => {
+  console.log('acknowledge works');
+  customer.publish('ACKNOWLEDGED', payload);
+});

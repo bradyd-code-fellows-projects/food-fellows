@@ -1,7 +1,8 @@
 'use strict';
 
+require('dotenv').config();
 const { Server } = require('socket.io');
-const PORT = process.eventNames.PORT || 3002;
+const PORT = 3001 || 3002;
 const Queue = require('./lib/queue');
 
 // http://localhost:3001
@@ -50,6 +51,16 @@ updates.on('connection', (socket) => {
     }
     currentQueue.store(payload.updateId, payload);
     updates.emit('IN_TRANSIT', payload);
+  });
+
+  socket.on('ACKNOWLEDGED', (payload) => {
+    let currentQueue = updateQueue.read(payload.queueId);
+    if (!currentQueue){
+      let queueKey = updateQueue.store(payload.queueId, new Queue());
+      currentQueue = updateQueue.read(queueKey);
+    }
+    currentQueue.store(payload.updateId, payload);
+    updates.emit('ACKNOWLEDGED', payload);
   });
 
   socket.on('DELIVERED', (payload) => {

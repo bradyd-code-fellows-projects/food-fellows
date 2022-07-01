@@ -1,8 +1,9 @@
 
 'use strict';
 
+require('dotenv').config();
 const { io } = require('socket.io-client');
-const SOCKET_URL = `http://localhost:${process.env.PORT}/updates`;
+const SOCKET_URL = `http://localhost:3001/updates`;
 
 class CustomerClient {
   constructor(queueId){
