@@ -53,16 +53,6 @@ updates.on('connection', (socket) => {
     updates.emit('IN_TRANSIT', payload);
   });
 
-  socket.on('ACKNOWLEDGED', (payload) => {
-    let currentQueue = updateQueue.read(payload.queueId);
-    if (!currentQueue){
-      let queueKey = updateQueue.store(payload.queueId, new Queue());
-      currentQueue = updateQueue.read(queueKey);
-    }
-    currentQueue.store(payload.updateId, payload);
-    updates.emit('ACKNOWLEDGED', payload);
-  });
-
   socket.on('DELIVERED', (payload) => {
     let currentQueue = updateQueue.read(payload.queueId);
     if (!currentQueue){
