@@ -9,6 +9,6 @@ vendor.subscribe('ORDER', (payload) => {
   setTimeout(() => {
   console.log(`VENDOR: received order ${payload.orderId} from customer ${payload.customerId}`);
   vendor.publish('READY_FOR_PICKUP', payload);
-  }, 2000);
+  }, 3000);
 });
 
